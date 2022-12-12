@@ -10,6 +10,10 @@ pool:
   vmImage: windows-2019
 
 steps:
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    verbose: false
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
@@ -17,3 +21,10 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '*.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)/cypress/reports/junit'
+    mergeTestResults: true
+    testRunTitle: 'Publish Test Results'
