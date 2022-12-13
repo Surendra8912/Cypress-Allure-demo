@@ -29,6 +29,7 @@ steps:
     mergeTestResults: true
     testRunTitle: 'Publish Test Results'
     
+- task: PublishPipelineMetadata@0
 - task: CopyFiles@2
   inputs:
      SourceFolder: '$(system.defaultworkingdirectory)'
@@ -41,4 +42,3 @@ steps:
     PathtoPublish: '$(build.artifactstagingdirectory)'
   condition: succeededOrFailed()
   
-- task: PublishPipelineMetadata@0
