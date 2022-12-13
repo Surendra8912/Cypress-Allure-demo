@@ -28,3 +28,17 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)/cypress/reports/junit'
     mergeTestResults: true
     testRunTitle: 'Publish Test Results'
+    
+- task: CopyFiles@2
+  inputs:
+     SourceFolder: '$(system.defaultworkingdirectory)'
+     Contents: '**/*.jar'
+     TargetFolder: '$(build.artifactstagingdirectory)'
+  condition: suceededOrFailed
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+  condition: succeededOrFailed()
+  
+- task: PublishPipelineMetadata@0
